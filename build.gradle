@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 8
+version = '1.0'
+
+configurations {
+    antTask
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    antTask 'com.intellij:javac2:+'
+    antTask 'com.intellij:forms_rt:+'
+    antTask 'org.ow2.asm:asm-all:+'
+    antTask group: 'org.jdom', name: 'jdom', version: '1.1'
+}
+
+task compileJava(overwrite: true, dependsOn: configurations.compile.getTaskDependencyFromProjectDependency(true, 'jar')) {
+    doLast {
+        project.sourceSets.main.output.classesDir.mkdirs()
+        ant.taskdef name: 'javac2', classname: 'com.intellij.uiDesigner.ant.Javac2', classpath: configurations.antTask.asPath
+        ant.javac2 srcdir: project.sourceSets.main.java.srcDirs.join(':'),
+                classpath: project.sourceSets.main.compileClasspath.asPath,
+                destdir: project.sourceSets.main.output.classesDir,
+                source: sourceCompatibility,
+                target: targetCompatibility,
+                includeAntRuntime: false
+    }
+}
