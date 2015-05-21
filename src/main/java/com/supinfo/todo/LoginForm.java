@@ -14,17 +14,28 @@ public class LoginForm {
     private JPasswordField passField;
     private JButton okButton;
     private JPanel root;
+    private static JFrame frame;
 
     public LoginForm() {
         ActionListener onLogin = e -> {
-            System.out.println(Database.login(userField.getText(), new String(passField.getPassword())));
+            User user = Database.login(userField.getText(), new String(passField.getPassword()));
+            if(user != null) {
+                if(user.role == User.EMPLOYEE) {
+                    EmployeeForm.open();
+                    frame.setVisible(false);
+                } else {
+                    // ManagerForm
+                }
+            } else {
+                JOptionPane.showMessageDialog(this.root, "Mauvais nom de compte ou mot de passe", "Erreur de conexion", JOptionPane.ERROR_MESSAGE);
+            }
         };
 
         KeyListener onEnter = new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 super.keyTyped(e);
-                switch(e.getKeyCode()) {
+                switch(e.getKeyChar()) {
                     case KeyEvent.VK_ENTER:
                         onLogin.actionPerformed(null);
                         break;
@@ -38,7 +49,7 @@ public class LoginForm {
     }
 
     public static void open() {
-        JFrame frame = new JFrame("LoginForm");
+        frame = new JFrame("LoginForm");
         frame.setContentPane(new LoginForm().root);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
