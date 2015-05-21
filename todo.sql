@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS users (
   PRIMARY KEY (id)
 );
 
-INSERT INTO users (username, password) VALUES ('user', 'W6ph5Mm5Pz8GgiULbPgzG37mj9g=');
+INSERT INTO users (username, password, role) VALUES ('user', 'W6ph5Mm5Pz8GgiULbPgzG37mj9g=', 0);
+INSERT INTO users (username, password, role) VALUES ('admin', 'W6ph5Mm5Pz8GgiULbPgzG37mj9g=', 1);
 
 INSERT INTO tasks (info) VALUES ('Tache 1');
 INSERT INTO tasks (info, comment) VALUES ('Tache 2', 'Termine');

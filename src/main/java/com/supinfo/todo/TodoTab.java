@@ -19,12 +19,11 @@ public class TodoTab {
     public TodoTab(Todo todo) {
         listeners = new ArrayList<>();
 
-        date.setText("Pour le: " + todo.date.toString());
-        infos.setText(todo.info);
+        date.setText("Pour le: " + todo.getDate());
+        infos.setText(todo.getInfo());
 
         mark.addActionListener(evt -> {
-            todo.comment = comment.getText();
-            Database.setTodo(todo);
+            Database.setTodo(comment.getText());
             listeners.forEach(Runnable::run);
         });
     }

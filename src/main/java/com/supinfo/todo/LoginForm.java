@@ -22,10 +22,10 @@ public class LoginForm {
             if(user != null) {
                 if(user.role == User.EMPLOYEE) {
                     EmployeeForm.open();
-                    frame.setVisible(false);
                 } else {
-                    // ManagerForm
+                    ManagerForm.open();
                 }
+                frame.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this.root, "Mauvais nom de compte ou mot de passe", "Erreur de conexion", JOptionPane.ERROR_MESSAGE);
             }

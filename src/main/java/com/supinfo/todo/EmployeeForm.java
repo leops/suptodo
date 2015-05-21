@@ -13,11 +13,13 @@ public class EmployeeForm {
     public EmployeeForm() {
         int index = 0;
         for(Todo todo : Database.getTodos()) {
-            int id = index++;
-            TodoTab tab = new TodoTab(todo);
-            tabs.add(tab.getRoot(), id);
-            tabs.setTitleAt(id, "Task #" + todo.id);
-            tab.addRemoveListener(() -> tabs.remove(id));
+            if(todo.comment == null) {
+                int id = index++;
+                TodoTab tab = new TodoTab(todo);
+                tabs.add(tab.getRoot(), id);
+                tabs.setTitleAt(id, "Task #" + todo.id);
+                tab.addRemoveListener(() -> tabs.remove(id));
+            }
         }
     }
 

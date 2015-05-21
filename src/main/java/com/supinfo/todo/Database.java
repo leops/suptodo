@@ -48,7 +48,7 @@ public class Database {
         List<Todo> list = new ArrayList<>();
 
         try {
-            PreparedStatement query = (PreparedStatement) getConnection().clientPrepareStatement("SELECT * FROM tasks WHERE comment IS NULL");
+            PreparedStatement query = (PreparedStatement) getConnection().clientPrepareStatement("SELECT * FROM tasks");
             ResultSet result = query.executeQuery();
 
             while(result.next()) {
@@ -61,20 +61,23 @@ public class Database {
         return list;
     }
 
-    public static void addTodo(Todo todo) {
+    public static int addTodo(Todo task) {
         try {
             PreparedStatement query = (PreparedStatement) getConnection().clientPrepareStatement("INSERT INTO tasks (info) VALUES (?)");
-            query.setString(1, todo.info);
+            query.setString(1, task.info);
             query.execute();
+            return (int) query.getLastInsertID();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return -1;
     }
 
-    public static void setTodo(Todo todo) {
+    public static void setTodo(String comment) {
         try {
             PreparedStatement query = (PreparedStatement) getConnection().clientPrepareStatement("UPDATE tasks SET comment = ?");
-            query.setString(1, todo.comment);
+            query.setString(1, comment);
             query.execute();
         } catch (SQLException e) {
             e.printStackTrace();
