@@ -30,7 +30,8 @@ public class Todo { //représente une tache dans le code, c'est chargée depuis la
         if(comment == null) {
             return "<html><span style=\"color: red;\">En cours</span></html>";
         } else {
-            return comment; //Pour l'affiche nous avons besoin des balises html       }
+            return comment; //Pour l'affiche nous avons besoin des balises html
+        }
     }
 
     public String getDate() {
