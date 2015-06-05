@@ -8,11 +8,12 @@ import javax.swing.*;
 public class Launcher {
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
-            e.printStackTrace();
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //Il utilise un thème natif au lieu d'un thème de java
+        } catch(Exception e)  // Evite que le programme s'arrête en cas d'erreur
+        {
+            e.printStackTrace(); //La méthode pour l'afficher
         }
 
-        LoginForm.open();
+        LoginForm.open(); // Ouvre le formulaire de login
     }
 }

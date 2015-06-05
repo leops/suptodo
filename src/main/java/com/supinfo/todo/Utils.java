@@ -11,10 +11,10 @@ import java.security.NoSuchAlgorithmException;
 public class Utils {
     public static String sha1(String value) {
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            return Base64.encode(md.digest(value.getBytes()));
-        } catch(NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            MessageDigest md = MessageDigest.getInstance("SHA-1"); // Crypte les mots de passe en SHA-1 pour la sécurité
+            return Base64.encode(md.digest(value.getBytes())); // Mot de passe stocké en base 64 plûtot q'en base 2 pour prendre moins de place
+        } catch(NoSuchAlgorithmException e) { // Si le SHA-1 n'est pas disponible
+            e.printStackTrace(); // Méthode pour l'afficher
             return null;
         }
     }

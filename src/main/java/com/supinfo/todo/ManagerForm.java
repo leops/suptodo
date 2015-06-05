@@ -10,16 +10,16 @@ import java.util.List;
 /**
  * Created by l3ops on 21/05/2015.
  */
-public class ManagerForm {
-    private JTextArea infos;
-    private JButton button;
-    private JPanel root;
-    private JTable taskList;
-    private JTextField date;
+public class ManagerForm { // class managerform
+    private JTextArea infos; // champs pour entrer un commentaire pour chaque tache
+    private JButton button; // bouton pour valider
+    private JPanel root; //le conteneur
+    private JTable taskList; //tableau qui affiche liste des tache a faire
+    private JTextField date; // entrer date a laquelle il faut rendre tache
 
-    public ManagerForm() {
-        List<Todo> tasks = Database.getTodos();
-        taskList.setModel(new TableModel() {
+    public ManagerForm() { // fenetre manager
+        List<Todo> tasks = Database.getTodos(); // recupere liste todo
+        taskList.setModel(new TableModel()  { // créer modele de la table
             @Override
             public int getRowCount() {
                 return tasks.size();
@@ -85,7 +85,7 @@ public class ManagerForm {
             }
         });
 
-        button.addActionListener(evt -> {
+        button.addActionListener(evt -> { // ajouter une nouvelle tache
             Date obj = null;
             try {
                 obj = Todo.format.parse(date.getText());
@@ -93,8 +93,8 @@ public class ManagerForm {
                 e.printStackTrace();
             }
 
-            Todo task = new Todo(0, obj, infos.getText(), null);
-            task.id = Database.addTodo(task);
+            Todo task = new Todo(0, obj, infos.getText(), null); //Il le créer a partir des donnée donner par les utilisateur
+            task.id = Database.addTodo(task); //Enregistre "Todo" dans la base de donnée
             if(task.id > -1) {
                 tasks.add(task);
                 taskList.addNotify();
@@ -103,7 +103,7 @@ public class ManagerForm {
         });
     }
 
-    public static void open() {
+    public static void open() { // Ouvre la fenêtre
         JFrame frame = new JFrame("ManagerForm");
         frame.setContentPane(new ManagerForm().root);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

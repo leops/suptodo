@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by l3ops on 21/05/2015.
  */
-public class Todo {
+public class Todo { //représente une tache dans le code, c'est chargée depuis la table "Task" de la base de donnée
     public int id;
     public Date date;
     public String info;
@@ -25,16 +25,15 @@ public class Todo {
     public String getInfo() {
         return "<html>" + info.replaceAll("\n", "<br>") + "</html>";
     }
-
-    public String getComment() {
+    //Retourne les information formater
+    public String getComment() { //Si il ya un commentaire ca le retourne sinon cela affiche "En cours"
         if(comment == null) {
             return "<html><span style=\"color: red;\">En cours</span></html>";
         } else {
-            return comment;
-        }
+            return comment; //Pour l'affiche nous avons besoin des balises html       }
     }
 
     public String getDate() {
         return format.format(date);
-    }
+    } //Retourne la date formater pour utiliser en chaine de caractere
 }
